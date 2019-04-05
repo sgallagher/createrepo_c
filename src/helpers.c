@@ -246,8 +246,15 @@ cr_repodata_blacklist(const char *repodata_path,
             continue;
         }
 
-        *blacklist = g_slist_prepend(*blacklist,
-                                     g_path_get_basename(rec->location_href));
+        if (g_strcmp0(rec->type, "modules") != 0) {
+            // Never blacklist the modules YAML
+            // This is a stopgap measure until createrepo_c learns to generate
+            // the modulemd.yaml itself. In the meantime, we just need to
+            // ensure that it never deletes the file.
+            *blacklist =
+                g_slist_prepend(*blacklist,
+                                g_path_get_basename(rec->location_href));
+        }
     }
 
     cr_repomd_free(repomd);
