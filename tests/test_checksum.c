@@ -23,7 +23,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "fixtures.h"
-#include "createrepo/checksum.h"
+#include "squishy-1.0/checksum.h"
 
 static void
 test_cr_checksum_file(void)

@@ -113,6 +113,10 @@ IF (WITH_LIBMODULEMD)
     SET (CMAKE_C_FLAGS_DEBUG    "${CMAKE_C_FLAGS_DEBUG} -DWITH_LIBMODULEMD")
 ENDIF (WITH_LIBMODULEMD)
 
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(LIBSQUISHY REQUIRED libsquishy-1.0)
+include_directories(${LIBSQUISHY_INCLUDE_DIRS})
+
 # Threaded XZ Compression
 # Note: This option is disabled by default, because Createrepo_c
 # parallelize a lot of tasks (including compression) by default, this

@@ -1,6 +1,4 @@
 SET (createrepo_c_SRCS
-     checksum.c
-     compression_wrapper.c
      createrepo_shared.c
      deltarpms.c
      dumper_thread.c
@@ -34,8 +32,6 @@ SET (createrepo_c_SRCS
      koji.c)
 
 SET(headers
-    checksum.h
-    compression_wrapper.h
     constants.h
     mergerepo_c.h
     createrepo_c.h
@@ -65,19 +61,15 @@ ELSE ()
   SET (createrepo_c_library_type STATIC)
 ENDIF ()
 ADD_LIBRARY(libcreaterepo_c ${createrepo_c_library_type} ${createrepo_c_SRCS})
-TARGET_LINK_LIBRARIES(libcreaterepo_c ${BZIP2_LIBRARIES})
 TARGET_LINK_LIBRARIES(libcreaterepo_c ${CURL_LIBRARY})
 TARGET_LINK_LIBRARIES(libcreaterepo_c ${EXPAT_LIBRARIES})
 TARGET_LINK_LIBRARIES(libcreaterepo_c ${GLIB2_LIBRARIES})
-TARGET_LINK_LIBRARIES(libcreaterepo_c ${Libmagic_LIBRARY})
 TARGET_LINK_LIBRARIES(libcreaterepo_c ${LIBMODULEMD_LIBRARIES})
+TARGET_LINK_LIBRARIES(libcreaterepo_c ${LIBSQUISHY_LIBRARIES})
 TARGET_LINK_LIBRARIES(libcreaterepo_c ${LIBXML2_LIBRARIES})
-TARGET_LINK_LIBRARIES(libcreaterepo_c ${LZMA_LIBRARIES})
 TARGET_LINK_LIBRARIES(libcreaterepo_c ${OPENSSL_LIBRARIES})
 TARGET_LINK_LIBRARIES(libcreaterepo_c ${RPMDB_LIBRARY})
 TARGET_LINK_LIBRARIES(libcreaterepo_c ${SQLITE3_LIBRARIES})
-TARGET_LINK_LIBRARIES(libcreaterepo_c ${ZLIB_LIBRARY})
-TARGET_LINK_LIBRARIES(libcreaterepo_c ${ZCK_LIBRARIES})
 TARGET_LINK_LIBRARIES(libcreaterepo_c ${DRPM_LIBRARIES})
 
 SET_TARGET_PROPERTIES(libcreaterepo_c PROPERTIES
@@ -97,7 +89,8 @@ TARGET_LINK_LIBRARIES(mergerepo_c
                         libcreaterepo_c
                         ${GLIB2_LIBRARIES}
                         ${GTHREAD2_LIBRARIES}
-                        ${LIBMODULEMD_LIBRARIES})
+                        ${LIBMODULEMD_LIBRARIES}
+                        ${LIBSQUISHY_LIBRARIES})
 
 ADD_EXECUTABLE(modifyrepo_c modifyrepo_c.c)
 TARGET_LINK_LIBRARIES(modifyrepo_c
